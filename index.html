@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lift Control System — SCAN Dispatch Simulator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div>
+      <h1>Lift Control System</h1>
+      <p>A 10-floor dispatch simulator running the SCAN algorithm in real time: the lift sweeps in one direction serving every request along the way, reverses when there's nothing left ahead, and dispatches itself automatically. It holds up to 5 riders at once.</p>
+    </div>
+    <div class="build-tag">SCAN · single lift · 10 floors · capacity 5</div>
+  </header>
+
+  <div class="grid">
+
+    <!-- LEFT: Shaft -->
+    <div class="shaft-col">
+      <div class="readout">
+        <div class="digit" id="floorDigit">01</div>
+        <div class="meta">
+          <div class="label"><span class="state-dot idle" id="stateDot"></span><span id="stateLabel">IDLE</span></div>
+          <div class="value" id="floorMeta">Floor 1 of 10</div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head"><h2>Shaft</h2></div>
+        <div class="panel-body" style="padding:0;">
+          <div class="shaft" id="shaft" style="height:420px;">
+            <div class="car" id="car"><span id="carLabel">EMPTY</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="controls-col">
+
+      <div class="panel">
+        <div class="panel-head"><h2>Request a trip</h2></div>
+        <div class="panel-body">
+          <div class="trip-form">
+            <label class="trip-field">
+              <span>From</span>
+              <select id="fromSelect"></select>
+            </label>
+            <label class="trip-field">
+              <span>To</span>
+              <select id="toSelect"></select>
+            </label>
+            <button class="btn primary" id="callTripBtn">Call lift</button>
+          </div>
+          <div class="trip-error" id="tripError"></div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head">
+          <h2>Pending requests</h2>
+          <span style="font-family:var(--font-mono); font-size:12px; color:var(--text-faint);"><span id="pendingCount">0 waiting</span> · <span id="onboardCount">0/5 onboard</span></span>
+        </div>
+        <div class="panel-body">
+          <ul class="queue-list" id="queueList"></ul>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head"><h2>Statistics</h2></div>
+        <div class="panel-body">
+          <div class="stats-grid">
+            <div class="stat"><div class="label">STOPS MADE</div><div class="value" id="statStops">0</div></div>
+            <div class="stat"><div class="label">TOTAL MOVEMENT</div><div class="value" id="statMovement">0 floors</div></div>
+            <div class="stat"><div class="label">AVG TRIP TIME</div><div class="value" id="statTripTime">0.0s</div></div>
+            <div class="stat"><div class="label">RUN TIME</div><div class="value" id="statRuntime">0.0s</div></div>
+            <div class="stat"><div class="label">ONBOARD</div><div class="value" id="statOnboard">0/5</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head"><h2>Activity log</h2></div>
+        <div class="log" id="log"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <footer>lift-simulator · vanilla JS · SCAN dispatch, 5-person capacity</footer>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
